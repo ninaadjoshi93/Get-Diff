@@ -6,13 +6,100 @@
     android:layout_height="match_parent"
     tools:context=".activities.GDLandingActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent">
+
+        <TextView android:id="@+id/todays_quote_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/today_s_quote"
+            android:textSize="@dimen/V14sp"
+            android:textColor="@color/dark_gray"
+            android:layout_marginTop="@dimen/V50dip"
+            android:layout_marginStart="@dimen/V20dip"
+            android:layout_marginEnd="@dimen/V20dip"
+            android:padding="@dimen/V10dip"
+            />
+
+        <TextView android:id="@+id/git_quote_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/today_s_quote"
+            android:textSize="@dimen/V18sp"
+            android:textColor="@color/dark_gray"
+            android:layout_below="@+id/todays_quote_tv"
+            android:layout_marginTop="@dimen/V20dip"
+            android:layout_marginStart="@dimen/V20dip"
+            android:layout_marginEnd="@dimen/V20dip"
+            android:padding="@dimen/V10dip"
+            />
+
+        <EditText android:id="@+id/repository_url_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginStart="@dimen/V20dip"
+            android:layout_marginEnd="@dimen/V20dip"
+            android:background="@drawable/git_theme_input_bg"
+            android:textColor="@color/light_gray"
+            android:textSize="@dimen/V20sp"
+            android:textColorHint="@color/translucent_white"
+            android:padding="@dimen/V10dip"
+            android:inputType="textUri"
+            android:imeOptions="actionDone"
+            android:hint="@string/enter_a_repository_link"
+            />
+
+        <TextView android:id="@+id/or_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/or"
+            android:textSize="@dimen/V14sp"
+            android:textColor="@color/dark_gray"
+            android:layout_below="@+id/repository_url_et"
+            android:layout_marginTop="@dimen/V20dip"
+            android:layout_marginStart="@dimen/V20dip"
+            android:layout_marginEnd="@dimen/V20dip"
+            android:padding="@dimen/V10dip"
+            />
+
+        <TextView android:id="@+id/fav_repo_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/go_to_my_preferred_repository"
+            android:textSize="@dimen/V16sp"
+            android:textColor="@color/dark_gray"
+            android:layout_below="@+id/or_tv"
+            android:layout_marginTop="@dimen/V5dip"
+            android:layout_marginStart="@dimen/V20dip"
+            android:layout_marginEnd="@dimen/V20dip"
+            android:padding="@dimen/V10dip"
+            />
+
+
+        <Button android:id="@+id/go_to_pull_requests_list_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_centerHorizontal="true"
+            android:text="@string/view_pull_requests"
+            android:textSize="@dimen/V18sp"
+            android:textColor="@color/light_gray"
+            android:background="@drawable/git_theme_button_selector"
+            android:textAllCaps="false"
+            android:layout_below="@+id/fav_repo_tv"
+            android:layout_marginTop="@dimen/V10dip"
+            android:layout_marginStart="@dimen/V20dip"
+            android:layout_marginEnd="@dimen/V20dip"
+            android:padding="@dimen/V10dip"
+            />
+
+
+    </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>

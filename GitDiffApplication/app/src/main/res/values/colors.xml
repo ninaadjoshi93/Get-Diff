@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorPrimary">#24292E</color>
+    <color name="colorPrimaryDark">#24292E</color>
+    <color name="colorAccent">#E9FDF2</color>
+
+    <color name="git_dark">#404448</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="translucent_white">#66FFFFFF</color>
+    <color name="dark_gray">#333333</color>
+    <color name="light_gray">#DDDDDD</color>
 </resources>

@@ -1,3 +1,9 @@
 <resources>
-    <string name="app_name">Git Diff Application</string>
+    <string name="app_name">Git Diff</string>
+    <string name="today_s_quote">Today\'s quote</string>
+    <string name="quote">Quote</string>
+    <string name="enter_a_repository_link">Enter a repository link</string>
+    <string name="or">OR</string>
+    <string name="go_to_my_preferred_repository">Go to my preferred repository</string>
+    <string name="view_pull_requests">View Pull Requests</string>
 </resources>

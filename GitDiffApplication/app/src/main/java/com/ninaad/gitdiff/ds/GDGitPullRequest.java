@@ -2,6 +2,7 @@ package com.ninaad.gitdiff.ds;
 
 /**
  * Created by ninaad on 2/26/19.
+ * A class to contain the required fields of the git pull requests
  */
 public class GBGitPullRequest {
     private int mPullId;
@@ -28,67 +29,67 @@ public class GBGitPullRequest {
         this.mDateUpdated = mDateUpdated;
     }
 
-    public int getmPullId() {
+    public int getPullId() {
         return mPullId;
     }
 
-    public void setmPullId(int mPullId) {
+    public void setPullId(int mPullId) {
         this.mPullId = mPullId;
     }
 
-    public String getmPullUrl() {
+    public String getPullUrl() {
         return mPullUrl;
     }
 
-    public void setmPullUrl(String mPullUrl) {
+    public void setPullUrl(String mPullUrl) {
         this.mPullUrl = mPullUrl;
     }
 
-    public int getmPullNumber() {
+    public int getPullNumber() {
         return mPullNumber;
     }
 
-    public void setmPullNumber(int mPullNumber) {
+    public void setPullNumber(int mPullNumber) {
         this.mPullNumber = mPullNumber;
     }
 
-    public String getmPullDiffUrl() {
+    public String getPullDiffUrl() {
         return mPullDiffUrl;
     }
 
-    public void setmPullDiffUrl(String mPullDiffUrl) {
+    public void setPullDiffUrl(String mPullDiffUrl) {
         this.mPullDiffUrl = mPullDiffUrl;
     }
 
-    public String getmUserLogin() {
+    public String getUserLogin() {
         return mUserLogin;
     }
 
-    public void setmUserLogin(String mUserLogin) {
+    public void setUserLogin(String mUserLogin) {
         this.mUserLogin = mUserLogin;
     }
 
-    public String getmUserId() {
+    public String getUserId() {
         return mUserId;
     }
 
-    public void setmUserId(String mUserId) {
+    public void setUserId(String mUserId) {
         this.mUserId = mUserId;
     }
 
-    public String getmDateCreated() {
+    public String getDateCreated() {
         return mDateCreated;
     }
 
-    public void setmDateCreated(String mDateCreated) {
+    public void setDateCreated(String mDateCreated) {
         this.mDateCreated = mDateCreated;
     }
 
-    public String getmDateUpdated() {
+    public String getDateUpdated() {
         return mDateUpdated;
     }
 
-    public void setmDateUpdated(String mDateUpdated) {
+    public void setDateUpdated(String mDateUpdated) {
         this.mDateUpdated = mDateUpdated;
     }
 }
