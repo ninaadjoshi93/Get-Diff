@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="repositoryName"
+            type="com.ninaad.gitdiff.models.GDGitRepository"/>
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".views.activities.GDPullRequestsListActivity">
+
+        <ProgressBar android:id="@+id/loading_list_pb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:indeterminateTint="@color/colorPrimaryDark"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:visibility="visible"/>
+
+
+        <RelativeLayout android:id="@+id/pull_requests_screen_rl"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView android:id="@+id/repository_link_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{repositoryName.mGitRepositoryOwner}"
+                android:textSize="@dimen/V18sp"
+                android:textColor="@color/dark_gray"
+                android:gravity="center"
+                android:layout_centerHorizontal="true"
+                />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/pull_requests_list_rv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/repository_link_tv"/>
+
+        </RelativeLayout>
+
+    </android.support.constraint.ConstraintLayout>
+</layout>
