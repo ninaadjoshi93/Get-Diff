@@ -6,10 +6,10 @@ import android.util.Log;
 import com.google.gson.Gson;
 import com.ninaad.gitdiff.BuildConfig;
 import com.ninaad.gitdiff.api.GDGitRequestsService;
-import com.ninaad.gitdiff.models.GDGitPRList;
+import com.ninaad.gitdiff.models.GDGitPR;
 
 import java.io.IOException;
-import java.util.concurrent.Executor;
+import java.util.List;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -23,10 +23,10 @@ public class GDRepository {
     private static GDRepository instance;
     private static final String TAG = GDRepository.class.getName();
     private final GDGitRequestsService gdGitRequestsService;
-    private GDGitPRList gdGitPRList;
+    private List<GDGitPR> gdGitPRList;
     private String mQuote;
     private MutableLiveData<String> mQuoteData;
-    private MutableLiveData<GDGitPRList> mGitPRListData;
+    private MutableLiveData<List<GDGitPR>> mGitPRListData;
 
     /**
      * Singleton Instance
@@ -62,7 +62,7 @@ public class GDRepository {
      * @param repository The name of the repository
      * @return A list of open pull requests of that repository
      */
-    public MutableLiveData<GDGitPRList> getPullRequets(String owner, String repository) {
+    public MutableLiveData<List<GDGitPR>> getPullRequests(String owner, String repository) {
         mGitPRListData = new MutableLiveData<>();
         getPullRequestsData(owner, repository);
         return mGitPRListData;
@@ -74,9 +74,9 @@ public class GDRepository {
      * @param repository The name of the repository
      */
     private void getPullRequestsData(String owner, String repository) {
-        gdGitRequestsService.getRepo(owner, repository).enqueue(new Callback<GDGitPRList>() {
+        gdGitRequestsService.getRepo(owner, repository).enqueue(new Callback<List<GDGitPR>>() {
             @Override
-            public void onResponse(Call<GDGitPRList> call, Response<GDGitPRList> response) {
+            public void onResponse(Call<List<GDGitPR>> call, Response<List<GDGitPR>> response) {
                 Log.d(TAG, "git pull request = " + call.request());
                 Log.d("pull response", new Gson().toJson(response.body()));
                 if (response.body() != null) {
@@ -86,10 +86,10 @@ public class GDRepository {
             }
 
             @Override
-            public void onFailure(Call<GDGitPRList> call, Throwable t) {
+            public void onFailure(Call<List<GDGitPR>> call, Throwable t) {
                 Log.d(TAG, "onFailure: " + t + " call: " + call.request().toString());
                 gdGitPRList = null;
-                mGitPRListData.postValue(null);
+//                mGitPRListData.postValue(null);
             }
         });
     }

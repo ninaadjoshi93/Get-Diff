@@ -21,11 +21,11 @@ public class GDGitRepository {
         this.mGitRepositoryOwner = gitRepositoryOwner;
     }
 
-    public String getmGitRepositoryName() {
+    public String getGitRepositoryName() {
         return mGitRepositoryName;
     }
 
-    public void setmGitRepositoryName(String mGitRepositoryName) {
+    public void setGitRepositoryName(String mGitRepositoryName) {
         this.mGitRepositoryName = mGitRepositoryName;
     }
 }

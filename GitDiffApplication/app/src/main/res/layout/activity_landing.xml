@@ -14,137 +14,141 @@
             type="com.ninaad.gitdiff.models.GDGitRepository"/>
     </data>
 
-    <android.support.constraint.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".views.activities.GDLandingActivity">
+        android:fillViewport="true">
 
-        <ProgressBar
-            android:id="@+id/loading_quote_pb"
-            android:layout_width="wrap_content"
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:indeterminate="true"
-            android:indeterminateTint="@color/colorPrimaryDark"
-            android:visibility="visible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            tools:context=".views.activities.GDLandingActivity">
 
-        <RelativeLayout
-            android:id="@+id/landing_screen_rl"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:visibility="visible">
-
-            <ImageView
-                android:id="@+id/github_logo_iv"
-                android:layout_width="@dimen/V100dip"
-                android:layout_height="@dimen/V100dip"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="@dimen/V20dip"
-                android:src="@drawable/github_icon" />
-
-            <TextView
-                android:id="@+id/todays_quote_tv"
+            <ProgressBar
+                android:id="@+id/loading_quote_pb"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/github_logo_iv"
-                android:layout_centerHorizontal="true"
-                android:layout_marginStart="@dimen/V20dip"
-                android:layout_marginTop="@dimen/V10dip"
-                android:layout_marginEnd="@dimen/V20dip"
-                android:gravity="center"
-                android:text="@string/today_s_quote"
-                android:textColor="@color/dark_gray"
-                android:textSize="@dimen/V14sp" />
+                android:indeterminate="true"
+                android:indeterminateTint="@color/colorPrimaryDark"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/git_quote_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/todays_quote_tv"
-                android:layout_centerHorizontal="true"
-                android:layout_marginStart="@dimen/V20dip"
-                android:layout_marginEnd="@dimen/V20dip"
-                android:gravity="center"
-                android:padding="@dimen/V5dip"
-                android:text="@{gitQuote}"
-                android:textColor="@color/dark_gray"
-                android:textSize="@dimen/V18sp" />
+            <RelativeLayout
+                android:id="@+id/landing_screen_rl"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:visibility="visible">
 
-            <EditText
-                android:id="@+id/repository_url_et"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/git_quote_tv"
-                android:layout_marginStart="@dimen/V20dip"
-                android:layout_marginTop="@dimen/V10dip"
-                android:layout_marginEnd="@dimen/V20dip"
-                android:background="@drawable/git_theme_input_bg"
-                android:hint="@string/enter_a_repository"
-                android:imeOptions="actionDone"
-                android:inputType="textUri"
-                android:padding="@dimen/V10dip"
-                android:text="@{(gitRepository.mGitRepositoryOwner != null &amp;&amp; gitRepository.mGitRepositoryName != null) ? @string/name_repo_format(gitRepository.mGitRepositoryOwner, gitRepository.mGitRepositoryName) : ``}"
-                android:textColor="@color/light_gray"
-                android:textColorHint="@color/translucent_white"
-                android:textSize="@dimen/V20sp" />
+                <ImageView
+                    android:id="@+id/github_logo_iv"
+                    android:layout_width="@dimen/V100dip"
+                    android:layout_height="@dimen/V100dip"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="@dimen/V20dip"
+                    android:src="@drawable/github_icon" />
 
-            <Button
-                android:id="@+id/go_to_pull_requests_list_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/repository_url_et"
-                android:layout_centerHorizontal="true"
-                android:layout_marginStart="@dimen/V20dip"
-                android:layout_marginTop="@dimen/V20dip"
-                android:layout_marginEnd="@dimen/V20dip"
-                android:background="@drawable/git_theme_button_selector"
-                android:gravity="center"
-                android:onClick="goToYourRepository"
-                android:padding="@dimen/V10dip"
-                android:text="@string/view_pull_requests"
-                android:textAllCaps="false"
-                android:textColor="@color/light_gray"
-                android:textSize="@dimen/V18sp" />
+                <TextView
+                    android:id="@+id/todays_quote_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/github_logo_iv"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginStart="@dimen/V20dip"
+                    android:layout_marginTop="@dimen/V10dip"
+                    android:layout_marginEnd="@dimen/V20dip"
+                    android:gravity="center"
+                    android:text="@string/today_s_quote"
+                    android:textColor="@color/dark_gray"
+                    android:textSize="@dimen/V14sp" />
 
+                <TextView
+                    android:id="@+id/git_quote_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/todays_quote_tv"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginStart="@dimen/V20dip"
+                    android:layout_marginEnd="@dimen/V20dip"
+                    android:gravity="center"
+                    android:padding="@dimen/V5dip"
+                    android:text="@{gitQuote}"
+                    android:textColor="@color/dark_gray"
+                    android:textSize="@dimen/V18sp" />
 
-            <TextView
-                android:id="@+id/or_tv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/go_to_pull_requests_list_btn"
-                android:layout_marginStart="@dimen/V20dip"
-                android:layout_marginTop="@dimen/V5dip"
-                android:layout_marginEnd="@dimen/V20dip"
-                android:gravity="center"
-                android:padding="@dimen/V5dip"
-                android:text="@string/or"
-                android:textColor="@color/dark_gray"
-                android:textSize="@dimen/V14sp" />
+                <EditText
+                    android:id="@+id/repository_url_et"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/git_quote_tv"
+                    android:layout_marginStart="@dimen/V20dip"
+                    android:layout_marginTop="@dimen/V10dip"
+                    android:layout_marginEnd="@dimen/V20dip"
+                    android:background="@drawable/git_theme_input_bg"
+                    android:hint="@string/enter_a_repository"
+                    android:imeOptions="actionDone"
+                    android:inputType="textUri"
+                    android:padding="@dimen/V10dip"
+                    android:text="@{(gitRepository.mGitRepositoryOwner != null &amp;&amp; gitRepository.mGitRepositoryName != null) ? @string/name_repo_format(gitRepository.mGitRepositoryOwner, gitRepository.mGitRepositoryName) : ``}"
+                    android:textColor="@color/light_gray"
+                    android:textColorHint="@color/translucent_white"
+                    android:textSize="@dimen/V20sp" />
 
-            <Button
-                android:id="@+id/select_my_repository_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/or_tv"
-                android:layout_centerHorizontal="true"
-                android:layout_marginStart="@dimen/V20dip"
-                android:layout_marginTop="@dimen/V5dip"
-                android:layout_marginEnd="@dimen/V20dip"
-                android:background="@drawable/git_theme_button_selector"
-                android:gravity="center"
-                android:padding="@dimen/V10dip"
-                android:onClick="goToMyRepository"
-                android:text="@string/my_favorite_repository"
-                android:textAllCaps="false"
-                android:textColor="@color/light_gray"
-                android:textSize="@dimen/V18sp" />
+                <Button
+                    android:id="@+id/go_to_pull_requests_list_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/repository_url_et"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginStart="@dimen/V20dip"
+                    android:layout_marginTop="@dimen/V20dip"
+                    android:layout_marginEnd="@dimen/V20dip"
+                    android:background="@drawable/git_theme_button_selector"
+                    android:gravity="center"
+                    android:onClick="goToYourRepository"
+                    android:padding="@dimen/V10dip"
+                    android:text="@string/view_pull_requests"
+                    android:textAllCaps="false"
+                    android:textColor="@color/light_gray"
+                    android:textSize="@dimen/V18sp" />
 
 
-        </RelativeLayout>
+                <TextView
+                    android:id="@+id/or_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/go_to_pull_requests_list_btn"
+                    android:layout_marginStart="@dimen/V20dip"
+                    android:layout_marginTop="@dimen/V5dip"
+                    android:layout_marginEnd="@dimen/V20dip"
+                    android:gravity="center"
+                    android:padding="@dimen/V5dip"
+                    android:text="@string/or"
+                    android:textColor="@color/dark_gray"
+                    android:textSize="@dimen/V14sp" />
 
-    </android.support.constraint.ConstraintLayout>
-    
+                <Button
+                    android:id="@+id/select_my_repository_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/or_tv"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginStart="@dimen/V20dip"
+                    android:layout_marginTop="@dimen/V5dip"
+                    android:layout_marginEnd="@dimen/V20dip"
+                    android:background="@drawable/git_theme_button_selector"
+                    android:gravity="center"
+                    android:padding="@dimen/V10dip"
+                    android:onClick="goToMyRepository"
+                    android:text="@string/my_favorite_repository"
+                    android:textAllCaps="false"
+                    android:textColor="@color/light_gray"
+                    android:textSize="@dimen/V18sp" />
+
+            </RelativeLayout>
+        </android.support.constraint.ConstraintLayout>
+
+    </ScrollView>
 </layout>

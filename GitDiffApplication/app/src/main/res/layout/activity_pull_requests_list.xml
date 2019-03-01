@@ -31,21 +31,30 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <TextView android:id="@+id/repository_link_tv"
-                android:layout_width="wrap_content"
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/pull_requests_list_rv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@+id/repository_tv"
+                />
+
+            <TextView android:id="@+id/repository_tv"
+                android:layout_alignParentBottom="true"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{repositoryName.mGitRepositoryOwner}"
+                android:text="@{`Owner : ` + repositoryName.mGitRepositoryOwner + `\n` + `Repository : ` + repositoryName.mGitRepositoryName}"
                 android:textSize="@dimen/V18sp"
-                android:textColor="@color/dark_gray"
+                android:textColor="@color/light_gray"
+                android:padding="@dimen/V10dip"
+                android:layout_marginTop="@dimen/V10dip"
+                android:layout_marginBottom="@dimen/V10dip"
+                android:layout_marginStart="@dimen/V10dip"
+                android:layout_marginEnd="@dimen/V10dip"
+                android:background="@drawable/git_theme_button_selector"
                 android:gravity="center"
                 android:layout_centerHorizontal="true"
                 />
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/pull_requests_list_rv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/repository_link_tv"/>
 
         </RelativeLayout>
 

@@ -57,7 +57,7 @@ public class GDLandingActivity extends AppCompatActivity {
         activityLandingBinding.goToPullRequestsListBtn.setEnabled(false);
         activityLandingBinding.selectMyRepositoryBtn.setEnabled(false);
         String[] mOwnerNameAndRepo = activityLandingBinding.repositoryUrlEt.getText()
-                .toString().split(",+ *");
+                .toString().split(", *");
         String message;
         String mRepoOwner = getResources().getString(R.string.repo_owner);
         String mRepoName = getResources().getString(R.string.repo_name);
@@ -71,6 +71,8 @@ public class GDLandingActivity extends AppCompatActivity {
             } else {
                 message = "Cool. Let's check your repository. :)";
             }
+            String mNameRepoSet = mOwnerNameAndRepo[0] + ", " + mOwnerNameAndRepo[1];
+            activityLandingBinding.repositoryUrlEt.setText(mNameRepoSet);
             activityLandingBinding.setGitRepository(new GDGitRepository(mOwnerNameAndRepo[0],
                     mOwnerNameAndRepo[1]));
         }
@@ -79,10 +81,11 @@ public class GDLandingActivity extends AppCompatActivity {
             activityLandingBinding.setGitRepository(new GDGitRepository(mRepoOwner, mRepoName));
             message = "Oops! Your repository is not valid. I will " +
                     "show you my favorite repository instead. :)";
-
+            String mNameRepoSet = mRepoOwner + ", " + mRepoName;
+            activityLandingBinding.repositoryUrlEt.setText(mNameRepoSet);
         }
         showSnackBar(view, message, activityLandingBinding.getGitRepository().getGitRepositoryOwner(),
-                activityLandingBinding.getGitRepository().getmGitRepositoryName());
+                activityLandingBinding.getGitRepository().getGitRepositoryName());
     }
 
     public void goToMyRepository(View view){
@@ -95,6 +98,9 @@ public class GDLandingActivity extends AppCompatActivity {
                 "repository. :)";
         String mRepoOwner = getResources().getString(R.string.repo_owner);
         String mRepoName = getResources().getString(R.string.repo_name);
+        String mNameRepoSet = mRepoOwner + ", " + mRepoName;
+        activityLandingBinding.repositoryUrlEt.setText(mNameRepoSet);
+
         showSnackBar(view, message, mRepoOwner, mRepoName);
     }
 
@@ -115,12 +121,14 @@ public class GDLandingActivity extends AppCompatActivity {
                         if (event == Snackbar.Callback.DISMISS_EVENT_TIMEOUT) {
                             // Snackbar closed on its own
                             // then go to the next activity
+                            activityLandingBinding.goToPullRequestsListBtn.setEnabled(true);
+                            activityLandingBinding.selectMyRepositoryBtn.setEnabled(true);
                             Intent goToGitPullRequestsIntent = new Intent
                                     (GDLandingActivity.this, GDPullRequestsListActivity
                                             .class);
                             goToGitPullRequestsIntent.putExtra("owner", mRepoOwner);
                             goToGitPullRequestsIntent.putExtra("name", mRepoName);
-//                            startActivity(goToGitPullRequestsIntent);
+                            startActivity(goToGitPullRequestsIntent);
                         }
                     }
 

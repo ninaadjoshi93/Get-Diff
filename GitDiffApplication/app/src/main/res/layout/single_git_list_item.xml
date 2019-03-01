@@ -11,54 +11,52 @@
             type="com.ninaad.gitdiff.models.GDGitUser"/>
     </data>
 
-    <android.support.constraint.ConstraintLayout
-        android:layout_width="match_parent" android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/light_gray"
+        android:padding="@dimen/V10dip">
 
-        <RelativeLayout
+        <TextView android:id="@+id/pull_id_tv"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:text="@{`Pull ID : ` + mPullRequest.pullId}"/>
 
-            <TextView android:id="@+id/pull_id_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{`Pull ID : ` + mPullRequest.pullId}"/>
+        <TextView android:id="@+id/user_id_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{`User ID : ` + mPullUser.userId}"
+            android:layout_below="@+id/pull_id_tv"/>
 
-            <TextView android:id="@+id/user_id_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{`User ID : ` + mPullUser.userId}"
-                android:layout_below="@+id/pull_id_tv"/>
+        <TextView android:id="@+id/user_login_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{`User Login : ` + mPullUser.userLogin}"
+            android:layout_below="@+id/user_id_tv"/>
 
-            <TextView android:id="@+id/user_login_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{`User Login : ` + mPullUser.userLogin}"
-                android:layout_below="@+id/user_id_tv"/>
+        <TextView android:id="@+id/pull_number_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{`Pull Number : ` + mPullRequest.pullNumber}"
+            android:layout_below="@+id/user_login_tv"/>
 
-            <TextView android:id="@+id/pull_number_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{`Pull Number : ` + mPullRequest.pullNumber}"
-                android:layout_below="@+id/user_login_tv"/>
+        <TextView android:id="@+id/pull_diff_url_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{`Pull diff url : ` + mPullRequest.pullDiffUrl}"
+            android:layout_below="@+id/pull_number_tv"/>
 
-            <TextView android:id="@+id/pull_diff_url_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{`Pull diff url : ` + mPullRequest.pullDiffUrl}"
-                android:layout_below="@+id/pull_number_tv"/>
+        <TextView android:id="@+id/pull_date_created_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{`Pull created at : ` + mPullRequest.dateCreated}"
+            android:layout_below="@+id/pull_diff_url_tv"/>
 
-            <TextView android:id="@+id/pull_date_created_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{`Pull created at : ` + mPullRequest.dateCreated}"
-                android:layout_below="@+id/pull_diff_url_tv"/>
+        <TextView android:id="@+id/pull_date_updated_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{`Pull updated at : ` + mPullRequest.dateUpdated}"
+            android:layout_below="@+id/pull_date_created_tv"/>
 
-            <TextView android:id="@+id/pull_date_updated_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{`Pull updated at : ` + mPullRequest.dateUpdated}"
-                android:layout_below="@+id/pull_date_created_tv"/>
-
-        </RelativeLayout>
-    </android.support.constraint.ConstraintLayout>
+    </RelativeLayout>
 </layout>

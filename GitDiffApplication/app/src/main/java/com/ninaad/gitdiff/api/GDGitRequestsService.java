@@ -1,6 +1,8 @@
 package com.ninaad.gitdiff.api;
 
-import com.ninaad.gitdiff.models.GDGitPRList;
+import com.ninaad.gitdiff.models.GDGitPR;
+
+import java.util.List;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -14,7 +16,7 @@ public interface GDGitRequestsService {
     Call<ResponseBody> getQuote();
 
     @GET("repos/{owner}/{repository}/pulls?state=open")
-    Call<GDGitPRList> getRepo(@Path("owner") String owner, @Path("repository") String repository);
+    Call<List<GDGitPR>> getRepo(@Path("owner") String owner, @Path("repository") String repository);
 
     @GET
     Call<String> getGitDiff(@Url String urlLink);

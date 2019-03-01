@@ -2,7 +2,7 @@
     <string name="app_name">Git Diff</string>
     <string name="today_s_quote">Today\'s quote</string>
     <string name="quote">Quote</string>
-    <string name="enter_a_repository">owner, repository name</string>
+    <string name="enter_a_repository">owner, repository_name</string>
     <string name="or">OR</string>
     <string name="my_favorite_repository">My Favorite Repository</string>
     <string name="view_pull_requests">View Pull Requests</string>
