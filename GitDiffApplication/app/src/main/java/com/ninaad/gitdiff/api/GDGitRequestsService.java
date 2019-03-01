@@ -19,5 +19,5 @@ public interface GDGitRequestsService {
     Call<List<GDGitPR>> getRepo(@Path("owner") String owner, @Path("repository") String repository);
 
     @GET
-    Call<String> getGitDiff(@Url String urlLink);
+    Call<ResponseBody> getGitDiff(@Url String urlLink);
 }

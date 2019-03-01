@@ -39,7 +39,9 @@ public class GDGitRequestsViewModel extends ViewModel {
         return gitPRListLiveData;
     }
 
-    public LiveData<String> getGitDiff() {
+    public LiveData<String> getGitDiff(String mGitDiffUrl) {
+        if (null == gitDiff)
+            gitDiff = gdRepository.getGitDiff(mGitDiffUrl);
         return gitDiff;
     }
 }

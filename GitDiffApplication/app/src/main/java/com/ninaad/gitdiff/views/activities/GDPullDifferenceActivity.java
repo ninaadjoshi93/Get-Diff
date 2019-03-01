@@ -36,9 +36,14 @@ public class GDPullDifferenceActivity extends AppCompatActivity {
 
         gitRequestsViewModel.init();
 
-        gitRequestsViewModel.getGitDiff().observe(this, mGitDifference ->{
+        activityPullDifferenceBinding.loadingDiffPb.setVisibility(View.VISIBLE);
+        activityPullDifferenceBinding.gitDiffRl.setVisibility(View.GONE);
+
+        gitRequestsViewModel.getGitDiff(gdGitPR.getPullDiffUrl()).observe(this, mGitDifference ->{
             activityPullDifferenceBinding.setPrevious(mGitDifference);
             activityPullDifferenceBinding.setNext(mGitDifference);
+            activityPullDifferenceBinding.loadingDiffPb.setVisibility(View.GONE);
+            activityPullDifferenceBinding.gitDiffRl.setVisibility(View.VISIBLE);
         });
 
     }

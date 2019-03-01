@@ -18,34 +18,56 @@
         android:layout_height="match_parent"
         tools:context=".views.activities.GDPullDifferenceActivity">
 
-        <ScrollView
+        <ProgressBar
+            android:id="@+id/loading_diff_pb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:indeterminateTint="@color/colorPrimaryDark"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <LinearLayout android:id="@+id/git_diff_rl"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fillViewport="true">
+            android:orientation="vertical">
 
-            <RelativeLayout
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="0px"
+                android:fillViewport="true"
+                android:layout_weight="1">
 
                 <TextView android:id="@+id/git_pull_diff_prev_tv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@{previous}"
+                    android:background="@color/light_gray"
                     />
+
+            </ScrollView>
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="0px"
+                android:fillViewport="true"
+                android:layout_weight="1">
 
                 <TextView android:id="@+id/git_pull_diff_next_tv"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@{next}"
+                    android:background="@color/white"
                     />
 
-            </RelativeLayout>
-
-
-
-
-        </ScrollView>
+            </ScrollView>
+        </LinearLayout>
 
     </android.support.constraint.ConstraintLayout>
+
 
 </layout>

@@ -73,7 +73,7 @@ public class GDPullRequestsListActivity extends AppCompatActivity {
                 Intent mPullDiffIntent = new Intent(GDPullRequestsListActivity.this,
                         GDPullDifferenceActivity.class);
                 mPullDiffIntent.putExtra("git_pull_object", gitPRObject);
-//                startActivity(mPullDiffIntent);
+                startActivity(mPullDiffIntent);
             }
         });
     }

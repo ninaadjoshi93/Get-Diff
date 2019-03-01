@@ -19,14 +19,15 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class GDRepository {
-
-    private static GDRepository instance;
     private static final String TAG = GDRepository.class.getName();
-    private final GDGitRequestsService gdGitRequestsService;
-    private List<GDGitPR> gdGitPRList;
-    private String mQuote;
-    private MutableLiveData<String> mQuoteData;
-    private MutableLiveData<List<GDGitPR>> mGitPRListData;
+    private static GDRepository instance = null;
+    private GDGitRequestsService mGitRequestsService = null;
+    private List<GDGitPR> mGitPRList = null;
+    private String mQuote = null;
+    private String mGitDiff = null;
+    private MutableLiveData<String> mQuoteData = null;
+    private MutableLiveData<List<GDGitPR>> mGitPRListData = null;
+    private MutableLiveData<String> mGitDiffData = null;
 
     /**
      * Singleton Instance
@@ -41,7 +42,7 @@ public class GDRepository {
     }
 
     private GDRepository() {
-        this.gdGitRequestsService = provideGitPullRequestsService();
+        this.mGitRequestsService = provideGitPullRequestsService();
     }
 
     /**
@@ -74,22 +75,22 @@ public class GDRepository {
      * @param repository The name of the repository
      */
     private void getPullRequestsData(String owner, String repository) {
-        gdGitRequestsService.getRepo(owner, repository).enqueue(new Callback<List<GDGitPR>>() {
+        mGitRequestsService.getRepo(owner, repository).enqueue(new Callback<List<GDGitPR>>() {
             @Override
             public void onResponse(Call<List<GDGitPR>> call, Response<List<GDGitPR>> response) {
                 Log.d(TAG, "git pull request = " + call.request());
                 Log.d("pull response", new Gson().toJson(response.body()));
                 if (response.body() != null) {
-                    gdGitPRList = response.body();
-                    mGitPRListData.postValue(gdGitPRList);
+                    mGitPRList = response.body();
+                    mGitPRListData.postValue(mGitPRList);
                 }
             }
 
             @Override
             public void onFailure(Call<List<GDGitPR>> call, Throwable t) {
                 Log.d(TAG, "onFailure: " + t + " call: " + call.request().toString());
-                gdGitPRList = null;
-//                mGitPRListData.postValue(null);
+                mGitPRList = null;
+                mGitPRListData.postValue(null);
             }
         });
     }
@@ -109,7 +110,7 @@ public class GDRepository {
      * An internal method to get the github quote from a web api
      */
     private void getQuoteData() {
-        gdGitRequestsService.getQuote().enqueue(new Callback<ResponseBody>() {
+        mGitRequestsService.getQuote().enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 Log.d(TAG, "git pull request = " + call.request());
@@ -132,4 +133,39 @@ public class GDRepository {
             }
         });
     }
+
+
+    public MutableLiveData<String> getGitDiff(String mGitDiffUrl){
+        mGitDiffData = new MutableLiveData<>();
+        getGitDiffData(mGitDiffUrl);
+        return mGitDiffData;
+    }
+
+    private void getGitDiffData(String mGitDiffUrl) {
+        mGitRequestsService.getGitDiff(mGitDiffUrl).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                Log.d(TAG, "git pull request = " + call.request());
+                if (response.body() != null) {
+                    try {
+                        mGitDiff = response.body().string();
+                        Log.d("pull response", mGitDiff);
+
+                        mGitDiffData.postValue(mGitDiff);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.d(TAG, "onFailure: " + t + " call: " + call.request().toString());
+                mGitDiff = null;
+                mGitDiffData.postValue(null);
+            }
+        });
+    }
+
 }
