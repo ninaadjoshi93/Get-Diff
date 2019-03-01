@@ -35,24 +35,19 @@
                 android:id="@+id/pull_requests_list_rv"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_above="@+id/repository_tv"
+                android:layout_below="@+id/repository_tv"
                 />
 
             <TextView android:id="@+id/repository_tv"
-                android:layout_alignParentBottom="true"
+                android:layout_alignParentTop="true"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{`Owner : ` + repositoryName.mGitRepositoryOwner + `\n` + `Repository : ` + repositoryName.mGitRepositoryName}"
+                android:text="@{`Repository : ` + repositoryName.mGitRepositoryName + `\n` + `Owner : ` + repositoryName.mGitRepositoryOwner}"
                 android:textSize="@dimen/V18sp"
                 android:textColor="@color/light_gray"
                 android:padding="@dimen/V10dip"
-                android:layout_marginTop="@dimen/V10dip"
-                android:layout_marginBottom="@dimen/V10dip"
-                android:layout_marginStart="@dimen/V10dip"
-                android:layout_marginEnd="@dimen/V10dip"
-                android:background="@drawable/git_theme_button_selector"
-                android:gravity="center"
-                android:layout_centerHorizontal="true"
+                android:background="@color/git_theme_dark_gray"
+                android:gravity="start"
                 />
 
 

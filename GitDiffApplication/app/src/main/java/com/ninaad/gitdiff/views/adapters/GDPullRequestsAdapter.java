@@ -40,7 +40,7 @@ public class GDPullRequestsAdapter extends RecyclerView.Adapter<GDPullRequestsAd
     @Override
     public void onBindViewHolder(@NonNull GDPullRequestsViewHolder holder, int i) {
         holder.binding.setMPullRequest(pullRequestsList.get(i));
-        holder.binding.setMPullUser(pullRequestsList.get(i).getGdGitUser());
+//        holder.binding.setMPullUser(pullRequestsList.get(i).getGitUser());
         holder.binding.executePendingBindings();
 
     }

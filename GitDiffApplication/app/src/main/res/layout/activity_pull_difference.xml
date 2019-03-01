@@ -36,7 +36,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <ScrollView
+            <ScrollView android:id="@+id/previous_sv"
                 android:layout_width="match_parent"
                 android:layout_height="0px"
                 android:fillViewport="true"
@@ -51,7 +51,7 @@
 
             </ScrollView>
 
-            <ScrollView
+            <ScrollView android:id="@+id/next_sv"
                 android:layout_width="match_parent"
                 android:layout_height="0px"
                 android:fillViewport="true"

@@ -28,21 +28,25 @@ public class GDGitPR implements Serializable {
     @SerializedName("updated_at")
     @Expose
     private String mDateUpdated;
+    @SerializedName("title")
+    @Expose
+    private String mPullTitle;
     @SerializedName("user")
     @Expose
-    private GDGitUser gdGitUser;
+    private GDGitUser mGitUser;
 
 
     public GDGitPR(int mPullId, String mPullUrl, int mPullNumber,
                    String mPullDiffUrl, String mDateCreated,
-                   String mDateUpdated, GDGitUser user) {
+                   String mDateUpdated, String mPullTitle, GDGitUser user) {
         this.mPullId = mPullId;
         this.mPullUrl = mPullUrl;
         this.mPullNumber = mPullNumber;
         this.mPullDiffUrl = mPullDiffUrl;
         this.mDateCreated = mDateCreated;
         this.mDateUpdated = mDateUpdated;
-        this.gdGitUser = user;
+        this.mPullTitle = mPullTitle;
+        this.mGitUser = user;
     }
 
     public int getPullId() {
@@ -93,12 +97,20 @@ public class GDGitPR implements Serializable {
         this.mDateUpdated = mDateUpdated;
     }
 
-    public GDGitUser getGdGitUser() {
-        return gdGitUser;
+    public String getPullTitle() {
+        return mPullTitle;
     }
 
-    public void setGdGitUser(GDGitUser gdGitUser) {
-        this.gdGitUser = gdGitUser;
+    public void setPullTitle(String mPullTitle) {
+        this.mPullTitle = mPullTitle;
+    }
+
+    public GDGitUser getGitUser() {
+        return mGitUser;
+    }
+
+    public void setGitUser(GDGitUser mGitUser) {
+        this.mGitUser = mGitUser;
     }
 
 }

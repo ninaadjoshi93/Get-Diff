@@ -9,7 +9,12 @@ import com.ninaad.gitdiff.api.GDGitRequestsService;
 import com.ninaad.gitdiff.models.GDGitPR;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -82,6 +87,27 @@ public class GDRepository {
                 Log.d("pull response", new Gson().toJson(response.body()));
                 if (response.body() != null) {
                     mGitPRList = response.body();
+
+                    for (GDGitPR gitPR : mGitPRList){
+                        String createdTime = gitPR.getDateCreated();
+                        String updatedTime = gitPR.getDateUpdated();
+                        SimpleDateFormat inputFormat = new SimpleDateFormat
+                                ("yyyy-MM-dd'T'HH:mm:ss'Z'",
+                                Locale.US);
+                        SimpleDateFormat outputFormat = new SimpleDateFormat("MMM dd, yyyy",
+                                Locale.US);
+                        Date createdDate = null;
+                        Date updatedDate = null;
+                        try {
+                            createdDate = inputFormat.parse(createdTime);
+                            updatedDate = inputFormat.parse(updatedTime);
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                        gitPR.setDateCreated(outputFormat.format(createdDate));
+                        gitPR.setDateUpdated(outputFormat.format(updatedDate));
+                    }
+
                     mGitPRListData.postValue(mGitPRList);
                 }
             }
