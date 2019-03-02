@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="gitLine"
+            type="com.ninaad.gitdiff.models.GDGitDiffLine"/>
+    </data>
+
+    <TextView android:id="@+id/git_diff_line_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@{gitLine.gitLine}"
+        android:textSize="@dimen/V16sp"
+        android:textColor="@color/dark_gray">
+
+    </TextView>
+
+</layout>
+

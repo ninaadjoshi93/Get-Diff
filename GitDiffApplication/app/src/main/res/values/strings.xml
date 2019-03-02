@@ -13,4 +13,6 @@
     <string name="name_repo_format">%s, %s</string>
     <string name="enter_a_repository_details">Enter your repository details below</string>
     <string name="git_details_format">#%s opened on %s by %s</string>
+    <string name="before_pull_request">Before Pull Request</string>
+    <string name="after_pull_request">After Pull Request</string>
 </resources>

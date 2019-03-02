@@ -9,13 +9,6 @@
             name="repositoryName"
             type="com.ninaad.gitdiff.models.GDGitRepository"/>
 
-        <variable
-            name="previous"
-            type="String"/>
-
-        <variable
-            name="next"
-            type="String"/>
     </data>
 
     <android.support.constraint.ConstraintLayout
@@ -51,41 +44,63 @@
                 android:gravity="center"
                 />
 
+            <LinearLayout android:id="@+id/before_and_after_ll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_below="@+id/repository_tv">
+
+                <TextView android:id="@+id/before_pull_request_tv"
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content"
+                    android:text="@string/before_pull_request"
+                    android:textSize="@dimen/V16sp"
+                    android:textColor="@color/dark_gray"
+                    android:gravity="center"
+                    android:background="@color/diff_light_red"
+                    android:layout_weight="1"/>
+
+
+                <TextView android:id="@+id/after_pull_request_tv"
+                    android:layout_width="0px"
+                    android:layout_height="wrap_content"
+                    android:text="@string/after_pull_request"
+                    android:textSize="@dimen/V16sp"
+                    android:textColor="@color/dark_gray"
+                    android:gravity="center"
+                    android:background="@color/diff_light_green"
+                    android:layout_weight="1"/>
+
+            </LinearLayout>
+
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@+id/repository_tv"
+                android:layout_below="@+id/before_and_after_ll"
                 android:orientation="horizontal">
 
-                <ScrollView android:id="@+id/previous_sv"
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/prev_rv"
                     android:layout_width="0px"
                     android:layout_height="match_parent"
                     android:fillViewport="true"
-                    android:layout_weight="1">
+                    android:layout_weight="1"
+                    android:overScrollMode="never"
+                    android:scrollbars="none"
+                    android:padding="@dimen/V1dip"
+                    android:background="@drawable/bordered_view"/>
 
-                    <TextView android:id="@+id/git_pull_diff_prev_tv"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@{previous}"
-                        android:background="@color/light_gray"
-                        />
-
-                </ScrollView>
-
-                <ScrollView android:id="@+id/next_sv"
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/next_rv"
                     android:layout_width="0px"
                     android:layout_height="match_parent"
                     android:fillViewport="true"
-                    android:layout_weight="1">
-
-                    <TextView android:id="@+id/git_pull_diff_next_tv"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@{next}"
-                        android:background="@color/white"
-                        />
-
-                </ScrollView>
+                    android:layout_weight="1"
+                    android:overScrollMode="never"
+                    android:scrollbars="none"
+                    android:padding="@dimen/V1dip"
+                    android:background="@drawable/bordered_view"/>
             </LinearLayout>
         </RelativeLayout>
 
