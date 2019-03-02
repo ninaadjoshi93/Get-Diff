@@ -6,7 +6,6 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -22,6 +21,7 @@ public class GDPullRequestsListActivity extends AppCompatActivity {
     private ActivityPullRequestsListBinding activityPullRequestsListBinding;
     private GDGitRequestsViewModel gitRequestsViewModel;
     private GDPullRequestsAdapter pullRequestsAdapter;
+    private GDGitRepository gitRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,26 +41,31 @@ public class GDPullRequestsListActivity extends AppCompatActivity {
                         LinearLayoutManager.VERTICAL, false));
 
         Intent intent = getIntent();
-        String mRepoOwner;
-        String mRepoName;
-        if (intent.hasExtra("name") && intent.hasExtra("owner"))
+        if (intent.hasExtra("repositoryDetails"))
         {
-            mRepoOwner = intent.getStringExtra("owner");
-            mRepoName = intent.getStringExtra("name");
+            gitRepository = (GDGitRepository) intent.getSerializableExtra("repositoryDetails");
         } else {
-            mRepoName = getString(R.string.repo_name);
-            mRepoOwner = getString(R.string.repo_owner);
+            gitRepository = new GDGitRepository(getString(R.string.repo_owner), getString(R.string
+                    .repo_name));
         }
 
-        activityPullRequestsListBinding.setRepositoryName(new GDGitRepository(mRepoOwner, mRepoName));
+        activityPullRequestsListBinding.setRepositoryName(gitRepository);
 
         if (GDUtilities.isNetworkAvailable(this)) {
 
-            gitRequestsViewModel.getGitPRListLiveData(mRepoOwner, mRepoName).observe(this, gitPRList -> {
-                activityPullRequestsListBinding.loadingListPb.setVisibility(View.GONE);
-                activityPullRequestsListBinding.pullRequestsScreenRl.setVisibility(View.VISIBLE);
-                pullRequestsAdapter.setPullRequestsList(gitPRList);
-
+            gitRequestsViewModel.getGitPRListLiveData(gitRepository.getGitRepositoryOwner(),
+                    gitRepository.getGitRepositoryName())
+                    .observe(this,
+                    gitPRList -> {
+                if (null != gitPRList && gitPRList.size() > 0) {
+                    activityPullRequestsListBinding.loadingListPb.setVisibility(View.GONE);
+                    activityPullRequestsListBinding.pullRequestsScreenRl.setVisibility(View.VISIBLE);
+                    pullRequestsAdapter.setPullRequestsList(gitPRList);
+                } else {
+                    Toast.makeText(this, "Sorry! No pull requests in this repository. :(", Toast
+                            .LENGTH_SHORT).show();
+                    this.finish();
+                }
             });
         } else {
             this.finish();
@@ -73,6 +78,7 @@ public class GDPullRequestsListActivity extends AppCompatActivity {
                 Intent mPullDiffIntent = new Intent(GDPullRequestsListActivity.this,
                         GDPullDifferenceActivity.class);
                 mPullDiffIntent.putExtra("git_pull_object", gitPRObject);
+                mPullDiffIntent.putExtra("repositoryDetails", gitRepository);
                 startActivity(mPullDiffIntent);
             }
         });

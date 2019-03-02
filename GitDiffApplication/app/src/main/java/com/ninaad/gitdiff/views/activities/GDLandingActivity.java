@@ -39,6 +39,10 @@ public class GDLandingActivity extends AppCompatActivity {
                     activityLandingBinding.loadingQuotePb.setVisibility(View.GONE);
                     activityLandingBinding.landingScreenRl.setVisibility(View.VISIBLE);
                     activityLandingBinding.setGitQuote(mQuote);
+                } else {
+                    activityLandingBinding.loadingQuotePb.setVisibility(View.GONE);
+                    activityLandingBinding.landingScreenRl.setVisibility(View.VISIBLE);
+                    activityLandingBinding.setGitQuote(getString(R.string.no_internet));
                 }
             });
         } else {
@@ -84,8 +88,7 @@ public class GDLandingActivity extends AppCompatActivity {
             String mNameRepoSet = mRepoOwner + ", " + mRepoName;
             activityLandingBinding.repositoryUrlEt.setText(mNameRepoSet);
         }
-        showSnackBar(view, message, activityLandingBinding.getGitRepository().getGitRepositoryOwner(),
-                activityLandingBinding.getGitRepository().getGitRepositoryName());
+        showSnackBar(view, message, activityLandingBinding.getGitRepository());
     }
 
     public void goToMyRepository(View view){
@@ -100,8 +103,8 @@ public class GDLandingActivity extends AppCompatActivity {
         String mRepoName = getResources().getString(R.string.repo_name);
         String mNameRepoSet = mRepoOwner + ", " + mRepoName;
         activityLandingBinding.repositoryUrlEt.setText(mNameRepoSet);
-
-        showSnackBar(view, message, mRepoOwner, mRepoName);
+        GDGitRepository gitRepository = new GDGitRepository(mRepoOwner, mRepoName);
+        showSnackBar(view, message, gitRepository);
     }
 
     @Override
@@ -111,8 +114,7 @@ public class GDLandingActivity extends AppCompatActivity {
         activityLandingBinding.selectMyRepositoryBtn.setEnabled(true);
     }
 
-    private void showSnackBar(View view, String message, final String mRepoOwner, final String
-            mRepoName){
+    private void showSnackBar(View view, String message, GDGitRepository gitRepository){
         Snackbar.make(view, message, Snackbar.LENGTH_SHORT)
                 .addCallback(new Snackbar.Callback(){
 
@@ -123,12 +125,11 @@ public class GDLandingActivity extends AppCompatActivity {
                             // then go to the next activity
                             activityLandingBinding.goToPullRequestsListBtn.setEnabled(true);
                             activityLandingBinding.selectMyRepositoryBtn.setEnabled(true);
-                            Intent goToGitPullRequestsIntent = new Intent
+                            Intent gitPullRequestsIntent = new Intent
                                     (GDLandingActivity.this, GDPullRequestsListActivity
                                             .class);
-                            goToGitPullRequestsIntent.putExtra("owner", mRepoOwner);
-                            goToGitPullRequestsIntent.putExtra("name", mRepoName);
-                            startActivity(goToGitPullRequestsIntent);
+                            gitPullRequestsIntent.putExtra("repositoryDetails", gitRepository);
+                            startActivity(gitPullRequestsIntent);
                         }
                     }
 

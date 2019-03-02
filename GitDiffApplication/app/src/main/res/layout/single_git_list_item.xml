@@ -34,7 +34,7 @@
         <TextView android:id="@+id/pull_date_updated_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@{`Last updated at : ` + mPullRequest.dateUpdated}"
+            android:text="@{`Last updated at ` + mPullRequest.dateUpdated}"
             android:textSize="@dimen/V16sp"
             android:textColor="@color/git_font_gray"
             android:layout_below="@+id/pull_details_tv"/>

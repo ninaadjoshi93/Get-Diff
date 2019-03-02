@@ -9,7 +9,6 @@ import com.ninaad.gitdiff.api.GDGitRequestsService;
 import com.ninaad.gitdiff.models.GDGitPR;
 
 import java.io.IOException;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -109,6 +108,9 @@ public class GDRepository {
                     }
 
                     mGitPRListData.postValue(mGitPRList);
+                } else {
+                    mGitPRList = null;
+                    mGitPRListData.postValue(null);
                 }
             }
 
@@ -148,6 +150,9 @@ public class GDRepository {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
+                } else {
+                    mQuote = null;
+                    mQuoteData.postValue(null);
                 }
             }
 
@@ -160,13 +165,21 @@ public class GDRepository {
         });
     }
 
-
+    /**
+     * A public method to fetch a git diff string from github
+     * @param mGitDiffUrl The git diff url string
+     * @return A string containing the diff
+     */
     public MutableLiveData<String> getGitDiff(String mGitDiffUrl){
         mGitDiffData = new MutableLiveData<>();
         getGitDiffData(mGitDiffUrl);
         return mGitDiffData;
     }
 
+    /**
+     * An internal method to get the git diff from a web api
+     * @param mGitDiffUrl
+     */
     private void getGitDiffData(String mGitDiffUrl) {
         mGitRequestsService.getGitDiff(mGitDiffUrl).enqueue(new Callback<ResponseBody>() {
             @Override
@@ -182,6 +195,9 @@ public class GDRepository {
                         e.printStackTrace();
                     }
 
+                } else {
+                    mGitDiff = null;
+                    mGitDiffData.postValue(null);
                 }
             }
 

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="repositoryName"
             type="com.ninaad.gitdiff.models.GDGitRepository"/>
@@ -35,10 +36,9 @@
             app:layout_constraintTop_toTopOf="parent" />
 
 
-        <LinearLayout android:id="@+id/git_diff_rl"
+        <RelativeLayout android:id="@+id/git_diff_rl"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
             <TextView android:id="@+id/repository_tv"
                 android:layout_width="match_parent"
@@ -51,39 +51,43 @@
                 android:gravity="center"
                 />
 
-
-            <ScrollView android:id="@+id/previous_sv"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0px"
-                android:fillViewport="true"
-                android:layout_weight="1"
-                android:overScrollMode="never">
+                android:layout_height="match_parent"
+                android:layout_below="@+id/repository_tv"
+                android:orientation="horizontal">
 
-                <TextView android:id="@+id/git_pull_diff_prev_tv"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@{previous}"
-                    android:background="@color/light_gray"
-                    />
+                <ScrollView android:id="@+id/previous_sv"
+                    android:layout_width="0px"
+                    android:layout_height="match_parent"
+                    android:fillViewport="true"
+                    android:layout_weight="1">
 
-            </ScrollView>
+                    <TextView android:id="@+id/git_pull_diff_prev_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@{previous}"
+                        android:background="@color/light_gray"
+                        />
 
-            <ScrollView android:id="@+id/next_sv"
-                android:layout_width="match_parent"
-                android:layout_height="0px"
-                android:fillViewport="true"
-                android:layout_weight="1"
-                android:overScrollMode="never">
+                </ScrollView>
 
-                <TextView android:id="@+id/git_pull_diff_next_tv"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@{next}"
-                    android:background="@color/white"
-                    />
+                <ScrollView android:id="@+id/next_sv"
+                    android:layout_width="0px"
+                    android:layout_height="match_parent"
+                    android:fillViewport="true"
+                    android:layout_weight="1">
 
-            </ScrollView>
-        </LinearLayout>
+                    <TextView android:id="@+id/git_pull_diff_next_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@{next}"
+                        android:background="@color/white"
+                        />
+
+                </ScrollView>
+            </LinearLayout>
+        </RelativeLayout>
 
     </android.support.constraint.ConstraintLayout>
 
