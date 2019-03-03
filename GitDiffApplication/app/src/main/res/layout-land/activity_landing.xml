@@ -17,7 +17,7 @@
         android:layout_height="match_parent"
         android:fillViewport="true">
 
-        <RelativeLayout
+        <android.support.design.widget.CoordinatorLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:context=".views.activities.GDLandingActivity">
@@ -28,13 +28,14 @@
                 android:layout_height="wrap_content"
                 android:indeterminate="true"
                 android:indeterminateTint="@color/colorPrimaryDark"
-                android:layout_centerInParent="true"
+                android:layout_gravity="center"
                 android:visibility="gone"/>
 
             <RelativeLayout
                 android:id="@+id/landing_screen_rl"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_gravity="center"
                 android:visibility="visible">
 
                 <ImageView
@@ -142,7 +143,7 @@
                     android:layout_marginBottom="@dimen/V50dip"/>
 
             </RelativeLayout>
-        </RelativeLayout>
+        </android.support.design.widget.CoordinatorLayout>
 
     </ScrollView>
 </layout>

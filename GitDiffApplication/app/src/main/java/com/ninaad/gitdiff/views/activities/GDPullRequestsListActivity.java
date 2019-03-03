@@ -3,7 +3,10 @@ package com.ninaad.gitdiff.views.activities;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
@@ -79,9 +82,26 @@ public class GDPullRequestsListActivity extends AppCompatActivity {
                         GDPullDifferenceActivity.class);
                 mPullDiffIntent.putExtra("git_pull_object", gitPRObject);
                 mPullDiffIntent.putExtra("repositoryDetails", gitRepository);
-                Toast.makeText(this, "For line by line comparison, I would suggest the landscape " +
-                        "orientation", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "For comparing the difference line by line, " +
+                        "I would suggest the landscape orientation", Toast.LENGTH_LONG).show();
                 startActivity(mPullDiffIntent);
+            }
+        });
+
+        activityPullRequestsListBinding.fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Visit the web page of the repository", Snackbar.LENGTH_LONG)
+                        .setAction("VISIT", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                Intent visitSiteIntent = new Intent(Intent.ACTION_VIEW,
+                                        Uri.parse("https://github.com/"
+                                                + gitRepository.getGitRepositoryOwner() + "/"
+                                                + gitRepository.getGitRepositoryName()));
+                                startActivity(visitSiteIntent);
+                            }
+                        }).setActionTextColor(Color.YELLOW).show();
             }
         });
     }

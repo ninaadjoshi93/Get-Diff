@@ -23,5 +23,6 @@
     <dimen name="V0dip">0dip</dimen>
     <dimen name="V22sp">22sp</dimen>
     <dimen name="V25sp">25sp</dimen>
+    <dimen name="fab_margin">16dip</dimen>
 
 </resources>

@@ -113,7 +113,7 @@ public class GDLandingActivity extends AppCompatActivity {
     }
 
     private void showSnackBar(View view, String message, GDGitRepository gitRepository){
-        Snackbar.make(view, message, Snackbar.LENGTH_SHORT)
+        Snackbar.make(view, message, Snackbar.LENGTH_LONG)
                 .addCallback(new Snackbar.Callback(){
 
                     @Override
