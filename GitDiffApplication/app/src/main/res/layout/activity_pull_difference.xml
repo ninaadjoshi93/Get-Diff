@@ -60,7 +60,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="0px"
                 android:layout_weight="1"
-                android:fillViewport="true">
+                android:fillViewport="true"
+                android:padding="@dimen/V1dip"
+                android:background="@drawable/bordered_view">
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/prev_rv"
@@ -87,7 +89,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="0px"
                 android:layout_weight="1"
-                android:fillViewport="true">
+                android:fillViewport="true"
+                android:padding="@dimen/V1dip"
+                android:background="@drawable/bordered_view">
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/next_rv"
