@@ -4,6 +4,7 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -84,7 +85,7 @@ public class GDPullDifferenceActivity extends AppCompatActivity {
 
 
         /*
-          Referred the following snippet from
+          Referred the following snippet to scroll the recycler views simultaneously from
           https://stackoverflow.com/questions/30702726/sync-scrolling-of-multiple-recyclerviews/31359767
          */
 
@@ -92,7 +93,7 @@ public class GDPullDifferenceActivity extends AppCompatActivity {
         scrollListeners[0] = new RecyclerView.OnScrollListener( )
         {
             @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy)
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy)
             {
                 super.onScrolled(recyclerView, dx, dy);
                 activityPullDifferenceBinding.nextRv.removeOnScrollListener(scrollListeners[1]);
@@ -103,7 +104,7 @@ public class GDPullDifferenceActivity extends AppCompatActivity {
         scrollListeners[1] = new RecyclerView.OnScrollListener( )
         {
             @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy)
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy)
             {
                 super.onScrolled(recyclerView, dx, dy);
                 activityPullDifferenceBinding.prevRv.removeOnScrollListener(scrollListeners[0]);
@@ -113,6 +114,15 @@ public class GDPullDifferenceActivity extends AppCompatActivity {
         };
         activityPullDifferenceBinding.prevRv.addOnScrollListener(scrollListeners[0]);
         activityPullDifferenceBinding.nextRv.addOnScrollListener(scrollListeners[1]);
+
+        activityPullDifferenceBinding.prevHsv.setOnScrollChangeListener((view, xNew, yNew, xOld, yOld) -> {
+            activityPullDifferenceBinding.nextHsv.scrollTo(xNew, yNew);
+        });
+
+        activityPullDifferenceBinding.nextHsv.setOnScrollChangeListener((view, xNew, yNew, xOld, yOld) -> {
+            activityPullDifferenceBinding.prevHsv.scrollTo(xNew, yNew);
+        });
+
 
     }
 }

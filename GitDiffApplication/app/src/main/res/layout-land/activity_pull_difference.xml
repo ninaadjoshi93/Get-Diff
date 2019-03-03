@@ -7,7 +7,7 @@
 
         <variable
             name="repositoryName"
-            type="com.ninaad.gitdiff.models.GDGitRepository"/>
+            type="com.ninaad.gitdiff.models.GDGitRepository" />
 
     </data>
 
@@ -29,47 +29,51 @@
             app:layout_constraintTop_toTopOf="parent" />
 
 
-        <RelativeLayout android:id="@+id/git_diff_rl"
+        <RelativeLayout
+            android:id="@+id/git_diff_rl"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <TextView android:id="@+id/repository_tv"
+            <TextView
+                android:id="@+id/repository_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{`Repository : ` + repositoryName.gitRepositoryName + `\n` + `Owner : ` + repositoryName.gitRepositoryOwner}"
-                android:textSize="@dimen/V18sp"
-                android:textColor="@color/light_gray"
-                android:padding="@dimen/V10dip"
                 android:background="@color/git_theme_dark_gray"
                 android:gravity="center"
-                />
+                android:padding="@dimen/V10dip"
+                android:text="@{`Repository : ` + repositoryName.gitRepositoryName + `  ` +`Owner : ` + repositoryName.gitRepositoryOwner}"
+                android:textColor="@color/light_gray"
+                android:textSize="@dimen/V20sp" />
 
-            <LinearLayout android:id="@+id/before_and_after_ll"
+            <LinearLayout
+                android:id="@+id/before_and_after_ll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_below="@+id/repository_tv">
+                android:layout_below="@+id/repository_tv"
+                android:orientation="horizontal">
 
-                <TextView android:id="@+id/before_pull_request_tv"
+                <TextView
+                    android:id="@+id/before_pull_request_tv"
                     android:layout_width="0px"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/diff_red"
+                    android:gravity="center"
                     android:text="@string/before_pull_request"
-                    android:textSize="@dimen/V16sp"
-                    android:textColor="@color/dark_gray"
-                    android:gravity="center"
-                    android:background="@color/diff_light_red"
-                    android:layout_weight="1"/>
+                    android:textColor="@color/diff_gray"
+                    android:textSize="@dimen/V18sp" />
 
 
-                <TextView android:id="@+id/after_pull_request_tv"
+                <TextView
+                    android:id="@+id/after_pull_request_tv"
                     android:layout_width="0px"
                     android:layout_height="wrap_content"
-                    android:text="@string/after_pull_request"
-                    android:textSize="@dimen/V16sp"
-                    android:textColor="@color/dark_gray"
+                    android:layout_weight="1"
+                    android:background="@color/diff_green"
                     android:gravity="center"
-                    android:background="@color/diff_light_green"
-                    android:layout_weight="1"/>
+                    android:text="@string/after_pull_request"
+                    android:textColor="@color/diff_gray"
+                    android:textSize="@dimen/V18sp" />
 
             </LinearLayout>
 
@@ -78,29 +82,41 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_below="@+id/before_and_after_ll"
+                android:baselineAligned="false"
                 android:orientation="horizontal">
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/prev_rv"
+                <HorizontalScrollView
+                    android:id="@+id/prev_hsv"
                     android:layout_width="0px"
                     android:layout_height="match_parent"
-                    android:fillViewport="true"
                     android:layout_weight="1"
-                    android:overScrollMode="never"
-                    android:scrollbars="none"
-                    android:padding="@dimen/V1dip"
-                    android:background="@drawable/bordered_view"/>
+                    android:fillViewport="true">
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/next_rv"
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/prev_rv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/bordered_view"
+                        android:fillViewport="true"
+                        android:padding="@dimen/V1dip" />
+
+                </HorizontalScrollView>
+
+                <HorizontalScrollView
+                    android:id="@+id/next_hsv"
                     android:layout_width="0px"
                     android:layout_height="match_parent"
-                    android:fillViewport="true"
                     android:layout_weight="1"
-                    android:overScrollMode="never"
-                    android:scrollbars="none"
-                    android:padding="@dimen/V1dip"
-                    android:background="@drawable/bordered_view"/>
+                    android:fillViewport="true">
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/next_rv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/bordered_view"
+                        android:fillViewport="true"
+                        android:padding="@dimen/V1dip"/>
+                </HorizontalScrollView>
             </LinearLayout>
         </RelativeLayout>
 

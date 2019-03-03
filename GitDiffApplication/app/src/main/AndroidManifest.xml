@@ -14,7 +14,8 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".views.activities.GDLandingActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="fullUser"
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -22,9 +23,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".views.activities.GDPullRequestsListActivity"
-            android:screenOrientation="fullUser"/>
+            android:screenOrientation="fullUser"
+            android:theme="@style/AppThemeNoActionBar"/>
         <activity android:name=".views.activities.GDPullDifferenceActivity"
-            android:screenOrientation="fullUser"/>
+            android:screenOrientation="fullUser"
+            android:theme="@style/AppThemeNoActionBar"/>
     </application>
 
 </manifest>

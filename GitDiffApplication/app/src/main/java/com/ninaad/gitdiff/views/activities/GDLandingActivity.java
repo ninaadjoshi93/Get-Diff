@@ -15,10 +15,8 @@ import com.ninaad.gitdiff.utils.GDUtilities;
 import com.ninaad.gitdiff.viewmodel.GDGitRequestsViewModel;
 
 public class GDLandingActivity extends AppCompatActivity {
-
     private ActivityLandingBinding activityLandingBinding;
     private GDGitRequestsViewModel gitRequestsViewModel;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

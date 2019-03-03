@@ -79,6 +79,8 @@ public class GDPullRequestsListActivity extends AppCompatActivity {
                         GDPullDifferenceActivity.class);
                 mPullDiffIntent.putExtra("git_pull_object", gitPRObject);
                 mPullDiffIntent.putExtra("repositoryDetails", gitRepository);
+                Toast.makeText(this, "For line by line comparison, I would suggest the landscape " +
+                        "orientation", Toast.LENGTH_LONG).show();
                 startActivity(mPullDiffIntent);
             }
         });

@@ -3,7 +3,6 @@ package com.ninaad.gitdiff.repositories;
 import android.arch.lifecycle.MutableLiveData;
 import android.util.Log;
 
-import com.google.gson.Gson;
 import com.ninaad.gitdiff.BuildConfig;
 import com.ninaad.gitdiff.api.GDGitRequestsService;
 import com.ninaad.gitdiff.models.GDGitPR;
@@ -25,7 +24,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class GDRepository {
     private static final String TAG = GDRepository.class.getName();
     private static GDRepository instance = null;
-    private GDGitRequestsService mGitRequestsService = null;
+    private GDGitRequestsService mGitRequestsService;
     private List<GDGitPR> mGitPRList = null;
     private String mQuote = null;
     private String mGitDiff = null;
@@ -35,7 +34,6 @@ public class GDRepository {
 
     /**
      * Singleton Instance
-     *
      * @return An instance of GDRepository
      */
     public static GDRepository getInstance() {
@@ -83,7 +81,6 @@ public class GDRepository {
             @Override
             public void onResponse(Call<List<GDGitPR>> call, Response<List<GDGitPR>> response) {
                 Log.d(TAG, "git pull request = " + call.request());
-                Log.d("pull response", new Gson().toJson(response.body()));
                 if (response.body() != null) {
                     mGitPRList = response.body();
 
@@ -145,7 +142,7 @@ public class GDRepository {
                 if (response.raw() != null) {
                     try {
                         mQuote = response.body().string();
-                        Log.d("pull response", mQuote);
+//                        Log.d("pull response", mQuote);
                         mQuoteData.postValue(mQuote);
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -188,7 +185,7 @@ public class GDRepository {
                 if (response.body() != null) {
                     try {
                         mGitDiff = response.body().string();
-                        Log.d("pull response", mGitDiff);
+//                        Log.d("pull response", mGitDiff);
 
                         mGitDiffData.postValue(mGitDiff);
                     } catch (IOException e) {

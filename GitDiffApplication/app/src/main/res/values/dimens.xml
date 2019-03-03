@@ -21,5 +21,7 @@
     <dimen name="V18sp">18sp</dimen>
     <dimen name="V20sp">20sp</dimen>
     <dimen name="V0dip">0dip</dimen>
+    <dimen name="V22sp">22sp</dimen>
+    <dimen name="V25sp">25sp</dimen>
 
 </resources>

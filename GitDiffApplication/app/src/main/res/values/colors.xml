@@ -19,6 +19,8 @@
     <color name="diff_light_green">#E6FFED</color>
     <color name="diff_light_red">#FFEEF0</color>
     <color name="diff_gray">#FAFBFC</color>
-    <color name="diff_light_orange">#FFF6E5</color>
+    <color name="diff_light_orange">#FFE4B2</color>
 
+    <color name="diff_red">#CB2431</color>
+    <color name="diff_green">#2CBE4E</color>
 </resources>

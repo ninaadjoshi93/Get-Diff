@@ -17,8 +17,6 @@ import java.util.List;
  * Created by ninaad on 3/2/19.
  */
 public class GDGitDiffAdapter extends RecyclerView.Adapter<GDGitDiffAdapter.GDGitDiffViewHolder> {
-
-
     private static final String TAG = GDGitDiffAdapter.class.getName();
     private List<GDGitDiffLine> gitLineList;
     private LayoutInflater layoutInflater;
@@ -34,8 +32,7 @@ public class GDGitDiffAdapter extends RecyclerView.Adapter<GDGitDiffAdapter.GDGi
         SingleGitDiffLineItemBinding binding = DataBindingUtil.inflate(layoutInflater, R.layout
                         .single_git_diff_line_item,
                 viewGroup, false);
-        GDGitDiffAdapter.GDGitDiffViewHolder holder = new GDGitDiffAdapter.GDGitDiffViewHolder(binding);
-        return holder;
+        return new GDGitDiffViewHolder(binding);
     }
 
     @Override
@@ -64,7 +61,7 @@ public class GDGitDiffAdapter extends RecyclerView.Adapter<GDGitDiffAdapter.GDGi
 
         final SingleGitDiffLineItemBinding binding;
 
-        public GDGitDiffViewHolder(SingleGitDiffLineItemBinding binding){
+        GDGitDiffViewHolder(SingleGitDiffLineItemBinding binding){
             super(binding.getRoot());
             this.binding = binding;
         }

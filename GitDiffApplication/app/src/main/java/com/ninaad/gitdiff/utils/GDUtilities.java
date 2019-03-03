@@ -20,9 +20,9 @@ public class GDUtilities {
     private static final String TAG = GDUtilities.class.getName();
     private static SharedPreferences mPrefs;
 
-    /**
-     *
-     * @param urlLink
+    /** (Not using this as I switched to specific user input)
+     * A method originally meant to pass a valid git url
+     * @param urlLink The url link as a string
      * @return A boolean indicating whether the url is valid
      */
     public static boolean isValidRepositoryUrl(String urlLink){
@@ -33,6 +33,12 @@ public class GDUtilities {
         return matcher.matches();
     }
 
+    /**
+     * A method to store a JSON (or normal) string in the application's shared preferences
+     * @param mContext The context
+     * @param mJsonDataString The input JSON (or normal) string containing the data
+     * @param mPreferenceKey The key for the shared preferences
+     */
     public static void setSharedPreferences(Context mContext, String
             mJsonDataString, String mPreferenceKey) {
 
@@ -43,6 +49,12 @@ public class GDUtilities {
         prefsEditor.apply();
     }
 
+    /**
+     * A method to retrieve a JSON string from the application's shared preferences
+     * @param mContext The context
+     * @param mPreferenceKey The key for the shared preferences
+     * @return A JSON (or normal) string containing the data corresponding to the key
+     */
     public static String getSharedPreferences(Context mContext, String
             mPreferenceKey) {
         mPrefs = PreferenceManager
@@ -52,9 +64,9 @@ public class GDUtilities {
     }
 
     /**
+     * This function checks whether a network is available or not.
      * @param mContext {@link android.app.Activity} {@link android.content,Context}
      * @return A boolean value whether a network is available or not(wifi or cellular)
-     * This function checks whether a network is available or not.
      */
     public static boolean isNetworkAvailable(Context mContext) {
 

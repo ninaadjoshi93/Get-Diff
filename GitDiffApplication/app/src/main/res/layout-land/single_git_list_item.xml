@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="mPullRequest"
+            type="com.ninaad.gitdiff.models.GDGitPR"/>
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bordered_view"
+        android:padding="@dimen/V10dip">
+
+        <TextView android:id="@+id/pull_title_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{mPullRequest.pullTitle}"
+            android:textSize="@dimen/V18sp"
+            android:textColor="@color/dark_gray"
+            android:textStyle="bold"
+            />
+
+        <TextView android:id="@+id/pull_details_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{@string/git_details_format(mPullRequest.pullNumber, mPullRequest.dateCreated, mPullRequest.gitUser.userLogin)}"
+            android:textSize="@dimen/V16sp"
+            android:textColor="@color/git_font_gray"
+            android:layout_below="@+id/pull_title_tv"/>
+
+        <TextView android:id="@+id/pull_date_updated_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{`Last updated at ` + mPullRequest.dateUpdated}"
+            android:textSize="@dimen/V16sp"
+            android:textColor="@color/git_font_gray"
+            android:layout_below="@+id/pull_details_tv"/>
+
+    </RelativeLayout>
+</layout>

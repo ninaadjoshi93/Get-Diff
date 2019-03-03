@@ -33,14 +33,12 @@ public class GDPullRequestsAdapter extends RecyclerView.Adapter<GDPullRequestsAd
     public GDPullRequestsViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         SingleGitListItemBinding binding = DataBindingUtil.inflate(layoutInflater, R.layout.single_git_list_item,
                 viewGroup, false);
-        GDPullRequestsViewHolder holder = new GDPullRequestsViewHolder(binding);
-        return holder;
+        return new GDPullRequestsViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull GDPullRequestsViewHolder holder, int i) {
         holder.binding.setMPullRequest(pullRequestsList.get(i));
-//        holder.binding.setMPullUser(pullRequestsList.get(i).getGitUser());
         holder.binding.executePendingBindings();
 
     }
@@ -72,7 +70,7 @@ public class GDPullRequestsAdapter extends RecyclerView.Adapter<GDPullRequestsAd
 
         final SingleGitListItemBinding binding;
 
-        public GDPullRequestsViewHolder(SingleGitListItemBinding binding){
+        GDPullRequestsViewHolder(SingleGitListItemBinding binding){
             super(binding.getRoot());
             this.binding = binding;
             this.binding.getRoot().setOnClickListener(this);

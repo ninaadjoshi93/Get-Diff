@@ -7,6 +7,8 @@ import com.ninaad.gitdiff.R;
 import com.ninaad.gitdiff.models.GDGitDiffLine;
 
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by ninaad on 3/1/19.
@@ -14,102 +16,176 @@ import java.util.ArrayList;
 public class GDDiffGenerator {
     private static final String TAG = GDDiffGenerator.class.getName();
     private Context mContext;
-    private ArrayList<GDGitDiffLine> mPreviousDiff;
-    private ArrayList<GDGitDiffLine> mNextDiff;
-    private static final int[] GIT_COLORS = {
-            R.color.diff_light_blue,
-            R.color.diff_light_green,
-            R.color.diff_light_red,
-            R.color.diff_gray,
-            R.color.diff_white,
-            R.color.diff_light_orange};
+    private static ArrayList<GDGitDiffLine> mPreviousDiff;
+    private static ArrayList<GDGitDiffLine> mNextDiff;
 
     public GDDiffGenerator(Context mContext, String mDiff) {
         this.mContext = mContext;
-        this.mPreviousDiff = createPreviousDiff(mDiff);
-        this.mNextDiff = createNextDiff(mDiff);
+        createPreviousDiff(mDiff);
     }
-
+    /**
+     * A public method to get the changes before the pull request
+     * @return A list of lines specific to changes before the pull request
+     */
     public ArrayList<GDGitDiffLine> getPreviousDiff() {
         return mPreviousDiff;
     }
 
+    /**
+     * A public method to get the changes after the pull request
+     * @return A list of lines specific to changes after the pull request
+     */
     public ArrayList<GDGitDiffLine> getNextDiff() {
         return mNextDiff;
     }
 
-    private ArrayList<GDGitDiffLine> createPreviousDiff(String mDiff){
-        ArrayList<GDGitDiffLine> mOutput = new ArrayList<>();
-        String [] mDiffArray = mDiff.split("\n");
-        StringBuilder builder = new StringBuilder();
+    /**
+     * An internal method to compute the difference lists for each line,
+     * with corresponding colors inspired from the Github split UI
+     * @param mDiff The difference string from Git
+     */
+    private void createPreviousDiff(String mDiff){
+        mPreviousDiff = new ArrayList<>();
+        mNextDiff = new ArrayList<>();
+        /*
+          The difference string is split into lines
+         */
+        String[] mDiffArray = mDiff.split("\n");
+        /*
+          I found specific patterns to look out for calculating the differences
+         */
+        Pattern diffLinePattern = Pattern.compile("^(diff) --git .*?(/.*) .*?(/.*)");
+        Pattern lineNumbersPattern = Pattern.compile("^(@@) .*?(\\d*),(\\d*) .*?(\\d*),(\\d*) " +
+                "(@@)");
+        Pattern removeLinePattern = Pattern.compile("^(-).*");
+        Pattern addLinePattern = Pattern.compile("^(\\+).*");
+
+        /*
+          The line numbers to be prepended to each line specifying the difference
+         */
+        int currentPrevLineNumber = 0;
+        int currentNextLineNumber = 0;
+        /*
+          I use the 'currentDiffCount' variable to keep track of the number of empty lines
+          which are to be appended to either the lists, based on the differences
+         */
+        int currentDiffCount = 0;
 
         for (int i = 0; i < mDiffArray.length; i++) {
-//            Pattern pattern = Pattern.compile("'(.*?)'");
-//            Matcher matcher = pattern.matcher(mDiffArray[i]);
-//            if (matcher.find())
-//            {
-//                System.out.println(matcher.group(1));
-//            }
-//            String [] mLineArray = mDiffArray[i].;
-//            if (i == 0) {
-////                Log.i(TAG, " color = " + Integer.toHexString(mContext.getColor(R.color
-////                        .diff_light_blue) & 0x00FFFFFF).toUpperCase());
-//                mOutput.append(String.format("<div style='background-color:#%s;",
-//                        Integer.toHexString(mContext.getColor(R.color
-//                                .diff_light_blue) & 0x00FFFFFF).toUpperCase()));
-//                mOutput.append("width:100%;'>");
-//                mOutput.append("&emsp;");
-//                mOutput.append(String.format("%1$4s", i));
-//                mOutput.append("&emsp;");
-//                mOutput.append(mDiffArray[i]);
-////                mOutput.append("&emsp;");
-//                mOutput.append("</div>");
-////                mOutput.append("<br>");
-//                Log.d(TAG, "prev output = " + mOutput.toString());
-//            } else {
-//                mOutput.append(String.format("%1$4s", i));
-//                mOutput.append("&emsp;");
-//                mOutput.append(mDiffArray[i]);
-//                mOutput.append("&emsp;");
-//                mOutput.append("<br>");
-//            }
-            GDGitDiffLine gitDiffLine = new GDGitDiffLine(i + "\t\t" + mDiffArray[i],
-                    buildColor(GIT_COLORS[i % 6]));
-            mOutput.add(gitDiffLine);
+            StringBuilder builder = new StringBuilder();
+
+            /*
+              Matchers for every pattern, checking through every line
+              to match the pattern
+             */
+            Matcher diffLineMatcher = diffLinePattern.matcher(mDiffArray[i]);
+            Matcher lineNumbersMatcher = lineNumbersPattern.matcher(mDiffArray[i]);
+            Matcher addLineMatcher = addLinePattern.matcher(mDiffArray[i]);
+            Matcher removeLineMatcher = removeLinePattern.matcher(mDiffArray[i]);
+
+
+            if (diffLineMatcher.find()){
+                /*
+                  If the line is a 'diff' line, then extract the file names and append them to
+                  the corresponding lists
+                 */
+                mPreviousDiff.add(new GDGitDiffLine(String.format("%5s", "File") + "\t\t"
+                        + diffLineMatcher.group(2), buildColor(R.color.diff_light_orange)));
+                mNextDiff.add(new GDGitDiffLine(String.format("%5s", "File") + "\t\t"
+                        + diffLineMatcher.group(3), buildColor(R.color.diff_light_orange)));
+                /*
+                  We don't consider the three lines after the 'diff' line as they have less
+                  useful information about the differences that a user might not require
+                 */
+                i += 3;
+                /*
+                  These two 'while' loops are replicated in some cases to added empty
+                  lines for proper alignment
+                 */
+                while (currentDiffCount < 0) {
+                    mNextDiff.add(new GDGitDiffLine(String.format("%5s", "\t"),
+                            buildColor(R.color.diff_gray)));
+                    currentDiffCount++;
+                }
+                while (currentDiffCount > 0){
+                    mPreviousDiff.add(new GDGitDiffLine(String.format("%5s", "\t"),
+                            buildColor(R.color.diff_gray)));
+                    currentDiffCount--;
+                }
+            } else if (lineNumbersMatcher.find()){
+                /*
+                  If the line contains the line numbers of the differences,
+                  we initialize the line counts for the previous and next
+                  differences
+                 */
+                while (currentDiffCount < 0) {
+                    mNextDiff.add(new GDGitDiffLine(String.format("%5s", "\t"),
+                            buildColor(R.color.diff_gray)));
+                    currentDiffCount++;
+                }
+                while (currentDiffCount > 0){
+                    mPreviousDiff.add(new GDGitDiffLine(String.format("%5s", "\t"),
+                            buildColor(R.color.diff_gray)));
+                    currentDiffCount--;
+                }
+                currentPrevLineNumber = Integer.parseInt(lineNumbersMatcher.group(2));
+                currentNextLineNumber = Integer.parseInt(lineNumbersMatcher.group(4));
+
+                builder.append(mDiffArray[i]);
+                mPreviousDiff.add(new GDGitDiffLine(  String.format("%5s", "") + "\t\t" +
+                        builder.toString(), buildColor(R.color.diff_light_blue)));
+                mNextDiff.add(new GDGitDiffLine(  String.format("%5s", "") + "\t\t" +
+                        builder.toString(), buildColor(R.color.diff_light_blue)));
+            } else if (removeLineMatcher.find()){
+                /*
+                  If the line was present before the pull request,
+                  we add the line to the previous pull list
+                 */
+                builder.append(mDiffArray[i]);
+                mPreviousDiff.add(new GDGitDiffLine(  String.format("%5s", currentPrevLineNumber)
+                        + "\t\t" + builder.toString(), buildColor(R.color.diff_light_red)));
+                currentPrevLineNumber++;
+                currentDiffCount--;
+            } else if (addLineMatcher.find()){
+                 /*
+                  If the line was present after the pull request,
+                  we add the line to the next pull list
+                 */
+                builder.append(mDiffArray[i]);
+                mNextDiff.add(new GDGitDiffLine(  String.format("%5s", currentNextLineNumber)
+                        + "\t\t" + builder.toString(), buildColor(R.color.diff_light_green)));
+                currentNextLineNumber++;
+                currentDiffCount++;
+            } else {
+                /*
+                  If it is any other difference line, we append it to both the lists
+                 */
+                while (currentDiffCount < 0) {
+                    mNextDiff.add(new GDGitDiffLine(String.format("%5s", "\t"),
+                            buildColor(R.color.diff_gray)));
+                    currentDiffCount++;
+                }
+                while (currentDiffCount > 0){
+                    mPreviousDiff.add(new GDGitDiffLine(String.format("%5s", "\t"),
+                            buildColor(R.color.diff_gray)));
+                    currentDiffCount--;
+                }
+                builder.append(mDiffArray[i]);
+                mPreviousDiff.add(new GDGitDiffLine(  String.format("%5s", currentPrevLineNumber)
+                        + "\t\t" + builder.toString(), buildColor(R.color.diff_white)));
+                mNextDiff.add(new GDGitDiffLine(  String.format("%5s", currentNextLineNumber)
+                        + "\t\t" + builder.toString(), buildColor(R.color.diff_white)));
+                currentPrevLineNumber++;
+                currentNextLineNumber++;
+            }
         }
-        return mOutput;
     }
 
-    private ArrayList<GDGitDiffLine> createNextDiff(String mDiff){
-        ArrayList<GDGitDiffLine> mOutput = new ArrayList<>();
-        String [] mDiffArray = mDiff.split("\n");
-        StringBuilder builder = new StringBuilder();
-        for (int i = 0; i < mDiffArray.length; i++) {
-//            if (i == 0) {
-//                mOutput.append(String.format("<div style='background-color:#%s;",
-//                        Integer.toHexString(mContext.getColor(R.color
-//                                .diff_light_blue) & 0x00FFFFFF).toUpperCase()));
-//                mOutput.append("width:100%;'>");
-//                mOutput.append("&emsp;");
-//                mOutput.append(String.format("%1$4s", i));
-//                mOutput.append("&emsp;");
-//                mOutput.append(mDiffArray[i]);
-//                mOutput.append("</div>");
-////                mOutput.append("<br>");
-//            } else {
-//                mOutput.append(String.format("%1$4s", i));
-//                mOutput.append("&emsp;");
-//                mOutput.append(mDiffArray[i]);
-//                mOutput.append("&emsp;");
-//                mOutput.append("<br>");
-//            }
-            GDGitDiffLine gitDiffLine = new GDGitDiffLine(i + "\t\t" + mDiffArray[i],
-                    buildColor(GIT_COLORS[i % 6]));
-            mOutput.add(gitDiffLine);
-        }
-        return mOutput;
-    }
-
+    /**
+     * An internal method to get color from a resource
+     * @param color The resource id of the required color
+     * @return The integer value equivalent of the color
+     */
     private int buildColor(int color){
         String colorBuilder = "#" +
                 Integer.toHexString(mContext.getColor(color));
